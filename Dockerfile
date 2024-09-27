@@ -1,7 +1,7 @@
 # Build Stage
 FROM node:12-buster-slim AS umbrel-middleware-builder
 
- Install tools
+# Install tools
  RUN apt-get update \
      && apt-get install -y git openssh \
      && apt-get clean
