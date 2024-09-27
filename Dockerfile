@@ -1,10 +1,11 @@
 # Build Stage
 FROM node:12-buster-slim AS umbrel-middleware-builder
 
-# Install tools
-# RUN apt-get update \
-#     && apt-get install -y build-essential \
-#     && apt-get install -y python3
+ Install tools
+ RUN apt-get update \
+     && apt-get install -y git openssh \
+     && apt-get clean
+	 && rm -rf /var/cache/apt/archives /var/lib/apt/lists
 
 # Create app directory
 WORKDIR /app
