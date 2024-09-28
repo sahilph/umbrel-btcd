@@ -141,7 +141,7 @@
                     :value="stats.peers"
                     :suffix="`${stats.peers === 1 ? 'Peer' : 'Peers'}`"
                     showPercentChange
-                    :showPopover="true"
+                    :showPopover="false"
                     popoverId="connections-popover"
                     :popoverContent="[`Clearnet${torProxy ? ' (over Tor)': ''}: ${peers.clearnet}`, `Tor: ${peers.tor}`, `I2P: ${peers.i2p}`]"
                   ></stat>
@@ -164,9 +164,9 @@
                 </b-col>
                 <b-col col cols="6" md="3">
                   <stat
-                    title="Blockchain Size"
-                    :value="abbreviateSize(stats.blockchainSize)[0]"
-                    :suffix="abbreviateSize(stats.blockchainSize)[1]"
+                    title="Network Difficulty"
+                    :value="abbreviateDifficulty(stats.difficulty)[0]"
+                    :suffix="abbreviateDifficulty(stats.difficulty)[1]"
                     showPercentChange
                     :showPopover="pruned"
                     popoverId="blockchain-size-popover"
@@ -264,6 +264,14 @@ export default {
       if (n >= 1e9 && n < 1e12) return [Number((n / 1e9).toFixed(1)), "GB"];
       if (n >= 1e12 && n < 1e15) return [Number((n / 1e12).toFixed(1)), "TB"];
       if (n >= 1e15) return [Number(+(n / 1e15).toFixed(1)), "PB"];
+    },
+    abbreviateDifficulty(n) {
+      if (n < 1e3) return [Number(n.toFixed(1)), 'B'];
+      if (n >= 1e3 && n < 1e6) return [Number((n / 1e3).toFixed(2)), 'K'];
+      if (n >= 1e6 && n < 1e9) return [Number((n / 1e6).toFixed(2)), 'M'];
+      if (n >= 1e9 && n < 1e12) return [Number((n / 1e9).toFixed(2)), 'G'];
+      if (n >= 1e12 && n < 1e15) return [Number((n / 1e12).toFixed(2)), 'T'];
+      if (n >= 1e15) return [Number(+(n / 1e15).toFixed(2)), 'P'];
     },
     fetchStats() {
       this.$store.dispatch("bitcoin/getStats");

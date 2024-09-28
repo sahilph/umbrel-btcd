@@ -13,6 +13,7 @@ async function getBitcoinStatsWidgetData() {
 
   const [hashRateValue, hashRateUnits] = abbreviateHashRate(stats.networkhashps);
   const [blockchainSizeValue, blockchainSizeUnits] = abbreviateSize(stats.size);
+  const [difficultyValue, difficultySizeUnits] = abbreviateDifficulty(stats.difficulty);
   const [mempoolValue, mempoolUnits] = abbreviateSize(stats.mempool);
 
   const widgetData = {
@@ -23,7 +24,8 @@ async function getBitcoinStatsWidgetData() {
       {title: 'Connections', text: stats.connections, subtext: 'peers'},
       {title: 'Mempool', text: mempoolValue, subtext: mempoolUnits},
       {title: 'Hashrate', text: hashRateValue, subtext: hashRateUnits},
-      {title: 'Blockchain size', text: blockchainSizeValue, subtext: blockchainSizeUnits}
+      {title: 'Blockchain size', text: blockchainSizeValue, subtext: blockchainSizeUnits},
+      {title: 'Network Difficulty', text: difficultyValue, subtext: difficultySizeUnits}
     ]
   };
 
@@ -88,6 +90,15 @@ function abbreviateSize(n) {
   if (n >= 1e9 && n < 1e12) return [Number((n / 1e9).toFixed(1)), 'GB'];
   if (n >= 1e12 && n < 1e15) return [Number((n / 1e12).toFixed(1)), 'TB'];
   if (n >= 1e15) return [Number(+(n / 1e15).toFixed(1)), 'PB'];
+}
+
+function abbreviateDifficulty(n) {
+  if (n < 1e3) return [Number(n.toFixed(1)), 'B'];
+  if (n >= 1e3 && n < 1e6) return [Number((n / 1e3).toFixed(2)), 'K'];
+  if (n >= 1e6 && n < 1e9) return [Number((n / 1e6).toFixed(2)), 'M'];
+  if (n >= 1e9 && n < 1e12) return [Number((n / 1e9).toFixed(2)), 'G'];
+  if (n >= 1e12 && n < 1e15) return [Number((n / 1e12).toFixed(2)), 'T'];
+  if (n >= 1e15) return [Number(+(n / 1e15).toFixed(2)), 'P'];
 }
 
 module.exports = {
