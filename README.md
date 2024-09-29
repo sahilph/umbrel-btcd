@@ -2,9 +2,9 @@
   <a href="https://umbrel.com">
     <img src="https://i.imgur.com/rhDWq5W.jpg" alt="Logo">
   </a>
-  <h1 align="center">Bitcoin Node for Umbrel</h1>
+  <h1 align="center">BTCD Bitcoin Node for Umbrel</h1>
   <p align="center">
-    Run a Bitcoin node on your Umbrel personal server. An official app by Umbrel. Powered by Bitcoin Core.
+    Run a Bitcoin node on your Umbrel personal server. An official app by Umbrel. Powered by BTCD.
     <br />
     <a href="https://umbrel.com"><strong>umbrel.com »</strong></a>
     <br />
