@@ -4,7 +4,7 @@
   </a>
   <h1 align="center">BTCD Bitcoin Node for Umbrel</h1>
   <p align="center">
-    Run a Bitcoin node on your Umbrel personal server. An official app by Umbrel. Powered by BTCD.
+    Run a Bitcoin node on your Umbrel personal server. An un-official app for Umbrel. Powered by BTCD.
     <br />
     <a href="https://umbrel.com"><strong>umbrel.com »</strong></a>
     <br />
