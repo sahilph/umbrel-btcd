@@ -99,6 +99,14 @@ function getNetworkInfo() {
   return promiseify(rpcClient, rpcClient.getNetworkInfo, 'network info');
 }
 
+function getInfo() {
+  return promiseify(rpcClient, rpcClient.getInfo, 'info');
+}
+
+function getConnectionCount() {
+  return promiseify(rpcClient, rpcClient.getConnectionCount, 'connection info');
+}
+
 function getMiningInfo() {
   return promiseify(rpcClient, rpcClient.getMiningInfo, 'mining info');
 }
@@ -129,6 +137,8 @@ module.exports = {
   getPeerInfo,
   getMempoolInfo,
   getNetworkInfo,
+  getInfo,
+  getConnectionCount,
   help,
   stop,
 };

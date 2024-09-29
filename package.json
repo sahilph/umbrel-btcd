@@ -16,7 +16,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "big.js": "^5.2.2",
-    "bitcoind-rpc": "^0.7.2",
+    "bitcoind-rpc": "git+https://github.com/sahilph/bitcoind-rpc.git#v0.9.1",
     "body-parser": "^1.18.2",
     "camelize-keys": "^1.0.0",
     "continuation-local-storage": "^3.2.1",

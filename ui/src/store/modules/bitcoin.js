@@ -35,7 +35,7 @@ const state = () => ({
     peers: -1,
     mempool: -1,
     hashrate: -1,
-    blockchainSize: -1
+    difficulty: -1
   },
   peers: {
     total: 0,
@@ -97,7 +97,7 @@ const mutations = {
   setStats(state, stats) {
     state.stats.peers = stats.peers;
     state.stats.mempool = stats.mempool;
-    state.stats.blockchainSize = stats.blockchainSize;
+    state.stats.difficulty = stats.difficulty;
     state.stats.hashrate = stats.hashrate;
   },
 
@@ -286,13 +286,13 @@ const actions = {
       const peers = stats.connections;
       const mempool = stats.mempool;
       const hashrate = stats.networkhashps;
-      const blockchainSize = stats.size;
+      const difficulty = stats.difficulty;
 
       commit("setStats", {
         peers,
         mempool,
         hashrate,
-        blockchainSize
+        difficulty
       });
     }
   }

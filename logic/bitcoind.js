@@ -23,14 +23,15 @@ async function getConnectionsCount() {
       inBoundConnections++;
     }
 
-    if (peer.network === "onion") {
-      torConnections++;
-    } else if (peer.network === "i2p") {
-      i2pConnections++;
-    } else {
-      // ipv4 and ipv6 are clearnet
-      clearnetConnections++;
-    }   
+    // if (peer.network === "onion") {
+    //   torConnections++;
+    // } else if (peer.network === "i2p") {
+    //   i2pConnections++;
+    // } else {
+    //   // ipv4 and ipv6 are clearnet
+    //   clearnetConnections++;
+    // }
+    clearnetConnections++;
   });
 
   const connections = {
@@ -112,11 +113,17 @@ async function getSyncStatus() {
 
 // TODO - consider using getNetworkInfo for info on proxy for ipv4 and ipv6
 async function getVersion() {
-  const networkInfo = await bitcoindService.getNetworkInfo();
-  const unformattedVersion = networkInfo.result.subversion;
+  const networkInfo = await bitcoindService.getInfo();
+  const unformattedVersion = networkInfo.result.version;
+
+  // Convert integer to semver
+  const major = Math.floor(unformattedVersion / 10000);
+  const minor = Math.floor((unformattedVersion % 10000) / 100);
+  const patch = unformattedVersion % 100;
+
 
   // Remove all non-digits or decimals.
-  const version = unformattedVersion.replace(/[^\d.]/g, '');
+  const version = '0.'+`${major}.${minor}`;
 
   return {version: version}; // eslint-disable-line object-shorthand
 }
@@ -251,13 +258,14 @@ async function getBlockHash(height) {
 
 async function nodeStatusDump() {
   const blockchainInfo = await bitcoindService.getBlockChainInfo();
-  const networkInfo = await bitcoindService.getNetworkInfo();
+  //const networkInfo = await bitcoindService.getNetworkInfo();
+  const connectionCount = await bitcoindService.getConnectionCount();
   const mempoolInfo = await bitcoindService.getMempoolInfo();
   const miningInfo = await bitcoindService.getMiningInfo();
 
   return {
     blockchain_info: blockchainInfo.result,
-    network_info: networkInfo.result,
+    connection_count: connectionCount.result,
     mempool: mempoolInfo.result,
     mining_info: miningInfo.result
   };
@@ -265,15 +273,16 @@ async function nodeStatusDump() {
 
 async function nodeStatusSummary() {
   const blockchainInfo = await bitcoindService.getBlockChainInfo();
-  const networkInfo = await bitcoindService.getNetworkInfo();
+  //const networkInfo = await bitcoindService.getNetworkInfo();
+  const connectionCount = await bitcoindService.getConnectionCount();
   const mempoolInfo = await bitcoindService.getMempoolInfo();
   const miningInfo = await bitcoindService.getMiningInfo();
 
   return {
     difficulty: blockchainInfo.result.difficulty,
-    size: blockchainInfo.result.sizeOnDisk,
-    mempool: mempoolInfo.result.usage,
-    connections: networkInfo.result.connections,
+    //size: blockchainInfo.result.sizeOnDisk,
+    mempool: mempoolInfo.result.bytes,
+    connections: connectionCount.result,
     networkhashps: miningInfo.result.networkhashps
   };
 }
